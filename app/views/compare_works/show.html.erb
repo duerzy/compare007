@@ -1,0 +1,48 @@
+<p>正确交易笔数: <%= @okOrder.size %></p>
+<p>正确交易金额：<%= @totalAmount %> 元</p>
+
+<p>错误帐单信息</p>
+<table border = '1'>
+	<tr>
+		<th>账单号</th>
+		<th>交易时间</th>
+		<th>交易金额</th>
+		<th>007账单号</th>
+	</tr>
+
+	<% @errorOrder.each do |order| %>
+		<tr>
+			<td><%= order.orderId %></td>
+			<td><%= order.tradeTime %></td>
+			<td><% tmpf = order.amount %><%= tmpf/100 %></td>
+			<td><%= order.bill007Id %></td>
+		</tr>
+	<% end %>
+</table>
+<p> 笔数：<%=@errorOrder.size %> </p>
+
+<p>007多出的充值信息，笔数：<%=@recordHash.size %></p>
+<table border = '1'>
+	<tr>
+		<th>007账单号</th>
+		<th>交易时间</th>
+		<th>电话号码</th>
+		<th>充值金额</th>
+		<th>结算金额</th>
+		<th>佣金</th>
+	</tr>
+
+	<% @recordHash.each do |key,order| %>
+		<tr>
+			<td><%= order.bill007Id %></td>
+			<td><%= order.recordTime %></td>
+			<td><%= order.phoneNumber %></td>
+			<td><%= order.trueAmount %></td>
+			<td><%= order.settleAmount %></td>
+			<td><%= order.commission %></td>
+		</tr>
+	<% end %>
+</table>
+
+
+

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  recordTime: MyString
+  refundAmount: 1
+  extraAmount: 1
+  billAmount: 1
+  balance: 1
+  TraceNumber007: MyString
+
+two:
+  recordTime: MyString
+  refundAmount: 1
+  extraAmount: 1
+  billAmount: 1
+  balance: 1
+  TraceNumber007: MyString

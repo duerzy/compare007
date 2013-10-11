@@ -1,0 +1,28 @@
+<p>帐单信息</p>
+<table border = '1'>
+	<tr>
+		<th>账单号</th>
+		<th>交易时间</th>
+		<th>交易金额</th>
+		<th>手机号</th>
+		<th>运营商</th>
+		<th>人工退货</th>
+	</tr>
+
+	<% @orders.each do |order| %>
+		<tr>
+			<td><%= order.orderId %></td>
+			<td><%= order.tradeTime %></td>
+			<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+			<td><%= order.phoneNumber %></td>
+			<td><%= order.mno %></td>
+			<td>
+<%= form_for :cost,url: manual_path(order),method: :patch  do |f| %>
+	<%= f.label "人工退货日期yyyyddmm" %>
+	<%= f.text_field  :manualDate %>
+	<%= f.submit "退货" %>
+<% end %></td>
+		</tr>
+	<% end %>
+
+</table>

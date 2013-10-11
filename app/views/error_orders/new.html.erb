@@ -1,0 +1,5 @@
+<%= form_for :errorOrder,url: error_orders_path  do |f| %>
+	<%= f.label "账单号" %>
+	<%= f.text_field :orderId %>
+	<%= f.submit "查看" %>
+<% end %>

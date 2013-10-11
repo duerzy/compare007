@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  orderId: MyString
+  busCode: MyString
+  busName: MyString
+  tradeTime: MyString
+  settleDate: MyString
+  amount: 1
+  payStatus: MyString
+  payMethod: MyString
+  settleNumber: MyString
+  mno: MyString
+  bill007Id: MyString
+  compare_id: 
+
+two:
+  orderId: MyString
+  busCode: MyString
+  busName: MyString
+  tradeTime: MyString
+  settleDate: MyString
+  amount: 1
+  payStatus: MyString
+  payMethod: MyString
+  settleNumber: MyString
+  mno: MyString
+  bill007Id: MyString
+  compare_id: 

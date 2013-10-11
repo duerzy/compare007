@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  recordTime: MyString
+  traceNumber007: MyString
+  bill007Id: MyString
+  namedAmount: MyString
+  trueAmount: MyString
+  phoneNumber: MyString
+  status: MyString
+  comment: MyString
+  settleAmount: 1
+  commission: 1
+  compare_id: 
+
+two:
+  recordTime: MyString
+  traceNumber007: MyString
+  bill007Id: MyString
+  namedAmount: MyString
+  trueAmount: MyString
+  phoneNumber: MyString
+  status: MyString
+  comment: MyString
+  settleAmount: 1
+  commission: 1
+  compare_id: 

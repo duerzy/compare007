@@ -1,0 +1,219 @@
+<% if not @error_msg.nil? %>
+	<h1><%= @error_msg %></h1>
+<%end%>
+<p>日期<%= @dailySettle.date %></p>
+<p>结算金额<% tmpf = Float @dailySettle.amount %><%= tmpf/100 %>元</p>
+<p>SD <% tmpf = Float @sd_r %><%= tmpf/100 %>元</p>
+<p>NC <% tmpf = Float @nc_r %><%= tmpf/100 %>元</p>
+<p>upmp <% tmpf = Float @upmp_r %><%= tmpf/100 %>元</p>
+<p>others <% tmpf = Float @other_r %><%= tmpf/100 %>元</p>
+<p>总计 <% tmpf = Float @total %><%= tmpf/100 %>元</p>
+<p>
+<% if @dailySettle.confirm.nil? %>
+	<p><%= link_to '标记对账正确', daily_settle_path(@dailySettle.id),method: :patch, data: { confirm: '请仔细确认总金额和结算金额，确认标记？' } %></p>
+	<p><%= link_to '新增作废帐单', new_error_order_path%></p>
+<% end %>
+</p>
+<p>
+<%= link_to '结算首页',daily_settles_path %>
+</p>
+
+<% if not @cmccCost.nil? %>
+	<p>移动成本:<% tmpf = Float @cmccCost %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @otherCost.nil? %>
+	<p>其他成本:<% tmpf = Float @otherCost %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @total007Cost.nil? %>
+	<p>007总成本:<% tmpf = Float @total007Cost %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @cmccCost2324.nil? %>
+	<p>移动成本(T-1 23:00:00-23:59:59):<% tmpf = Float @cmccCost2324 %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @otherCost2324.nil? %>
+	<p>其他成本(T-1 23:00:00-23:59:59):<% tmpf = Float @otherCost2324 %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @cmccCost2423.nil? %>
+	<p>移动成本(T   00:00:00-22:59:59):<% tmpf = Float @cmccCost2423 %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @otherCost2423.nil? %>
+	<p>其他成本(T   00:00:00-22:59:59):<% tmpf = Float @otherCost2423 %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @manualCost.nil? %>
+	<p>手工成本:<% tmpf = Float @manualCost %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @total007Refund.nil? %>
+	<p>007退款总额:<% tmpf = Float @total007Refund %><%= tmpf/100 %>元
+<% end %>
+<% if not @total007Cost24.nil? %>
+	<p>007从23点到24点的金额变化:<% tmpf = Float @total007Cost24 %><%= tmpf/100 %>元
+<% end %>
+<% if not @manualRefundSum.nil? %>
+	<p>手工退款总额`:<% tmpf = Float @manualRefundSum %><%= tmpf/100 %>元
+<% end %>
+
+<% if not @manualOrders.nil? %>
+<p>手工处理帐单信息</p>
+	<table border = '1'>
+		<tr>
+			<th>账单号</th>
+			<th>交易时间</th>
+			<th>交易金额</th>
+			<th>手机号</th>
+			<th>运营商</th>
+			<th>手工设置成本</th>
+			<th>手工处理日期</th>
+			<th>操作录入时间</th>
+			<th>操作</th>
+		</tr>
+
+		<% @manualOrders.each do |order| %>
+			<tr>
+				<td><%= order.orderId %></td>
+				<td><%= order.tradeTime %></td>
+				<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+				<td><%= order.phoneNumber %></td>
+				<td><%= order.mno %></td>
+				<td><% tmpf = Float order.cost %><%= tmpf/100 %></td>
+				<td><%= order.manualDate %></td>
+				<td><%= order.isManual %></td>
+				<td><%= link_to '撤销手工单', cost_path(order), method: :delete, data: { confirm: '确认撤销？'} %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if not @manualRefundOrders.nil? %>
+<p>线下退款帐单信息</p>
+	<table border = '1'>
+		<tr>
+			<th>账单号</th>
+			<th>交易时间</th>
+			<th>交易金额</th>
+			<th>手机号</th>
+			<th>运营商</th>
+			<th>线下退款日期</th>
+			<th>操作录入时间</th>
+			<th>操作</th>
+		</tr>
+
+		<% @manualRefundOrders.each do |order| %>
+			<tr>
+				<td><%= order.orderId %></td>
+				<td><%= order.tradeTime %></td>
+				<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+				<td><%= order.phoneNumber %></td>
+				<td><%= order.mno %></td>
+				<td><%= order.manualDate %></td>
+				<td><%= order.isManualRefund %></td>
+				<td><%= link_to '撤销线下退款', manual_path(order), method: :delete, data: { confirm: '确认撤销？'} %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if not @errorOrders.nil? %>
+<p>我们有单，007未扣款</p>
+	<table border = '1'>
+		<tr>
+			<th>账单号</th>
+			<th>交易时间</th>
+			<th>手机号</th>
+			<th>交易金额</th>
+			<th>007账单号</th>
+			<th></th>
+			<th></th>
+		</tr>
+
+		<% @errorOrders.each do |order| %>
+			<tr>
+				<td><%= order.orderId %></td>
+				<td><%= order.tradeTime %></td>
+				<td><%= order.phoneNumber %></td>
+				<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+				<td><%= order.bill007Id %></td>
+				<td><%= link_to '添加手工单', cost_path(order) %></td>
+				<td><%= link_to '添加线下退款', manual_path(order) %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if not @needRefunds.nil? %>
+<p>007已退款，我们未退款</p>
+	<table border = '1'>
+		<tr>
+			<th>账单号</th>
+			<th>交易时间</th>
+			<th>手机号</th>
+			<th>交易金额</th>
+			<th>007账单号</th>
+			<th></th>
+			<th></th>
+		</tr>
+
+		<% @needRefunds.each do |order| %>
+			<tr>
+				<td><%= order.orderId %></td>
+				<td><%= order.tradeTime %></td>
+				<td><%= order.phoneNumber %></td>
+				<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+				<td><%= order.bill007Id %></td>
+				<td><%= link_to '添加手工单', cost_path(order) %></td>
+				<td><%= link_to '添加线下退款', manual_path(order) %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if not @seems007cheat.nil? %>
+<p>007扣款，我们没有单</p>
+	<table border = '1'>
+		<tr>
+			<th>交易时间</th>
+			<th>手机号</th>
+			<th>交易金额</th>
+			<th>007账单号</th>
+		</tr>
+
+		<% @seems007cheat.each do |bill007| %>
+			<tr>
+				<td><%= bill007.billTime %></td>
+				<td><%= bill007.phoneNumber %></td>
+				<td><% tmpf = Float bill007.billAmount %><%= tmpf/100 %></td>
+				<td><%= bill007.bill007Id %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if not @seemsErrorRefund.nil? %>
+<p>我们已退款，007未退款(没有找到消费的单，或者消费的单不是异常单和退货单)</p>
+	<table border = '1'>
+		<tr>
+			<th>账单号</th>
+			<th>交易时间</th>
+			<th>手机号</th>
+			<th>交易金额</th>
+			<th>007账单号</th>
+		</tr>
+
+		<% @seemsErrorRefund.each do |order| %>
+			<tr>
+				<td><%= order.orderId %></td>
+				<td><%= order.tradeTime %></td>
+				<td><%= order.phoneNumber %></td>
+				<td><% tmpf = Float order.amount %><%= tmpf/100 %></td>
+				<td><%= order.bill007Id %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>

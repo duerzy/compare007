@@ -1,0 +1,21 @@
+<h1>CompareWork#index</h1>
+
+<table border='1'>
+	<tr>
+		<th>索引</th>
+		<th>帐单文件名</th>
+		<th>007文件名</th>
+		<th>比较提交时间</th>
+		<th></th>
+	</tr>
+
+	<% @compares.each do |compare| %>
+		<tr>
+			<td><%= compare.id %></td>
+			<td><%= compare.orderFile %></td>
+			<td><%= compare.record007File %></td>
+			<td><%= compare.submitTime %></td>
+			<td><%= link_to "查看",compare_work_path(compare) %></td>
+		</tr>
+	<% end %>
+</table>

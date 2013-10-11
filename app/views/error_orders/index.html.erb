@@ -1,0 +1,19 @@
+<p>标记无效帐单信息</p>
+<table border = '1'>
+	<tr>
+		<th>账单号</th>
+		<th>交易时间</th>
+		<th>交易金额</th>
+		<th>标记无效的时间</th>
+	</tr>
+
+	<% @orders.each do |order| %>
+		<tr>
+			<td><%= order.orderId %></td>
+			<td><%= order.tradeTime %></td>
+			<td><% tmpf = order.amount %><%= tmpf/100 %></td>
+			<td><%= order.isError %></td>
+		</tr>
+	<% end %>
+	<%= link_to '新增', new_error_order_path%>
+</table>

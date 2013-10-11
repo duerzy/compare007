@@ -1,0 +1,9 @@
+<%= form_for :compare,url: compare_works_path  do |f| %>
+	<%= f.label "帐单文件" %>
+	<%= f.file_field :orderFile %>
+	<%= f.label "007文件" %>
+	<%= f.file_field :record007File %>
+	<%= f.label "007帐单" %>
+	<%= f.file_field :bill007File %>
+	<%= f.submit "上传" %>
+<% end %>

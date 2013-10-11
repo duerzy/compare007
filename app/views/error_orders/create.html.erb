@@ -1,0 +1,23 @@
+<p>帐单信息</p>
+<table border = '1'>
+	<tr>
+		<th>账单号</th>
+		<th>交易时间</th>
+		<th>交易金额</th>
+		<th>清算日期</th>
+		<th>银联流水号</th>
+		<th></th>
+	</tr>
+
+	<% @orders.each do |order| %>
+		<tr>
+			<td><%= order.orderId %></td>
+			<td><%= order.tradeTime %></td>
+			<td><% tmpf = order.amount %><%= tmpf/100 %></td>
+			<td><%= order.settleDate %></td>
+			<td><%= order.settleNumber %></td>
+			<td><%= link_to '标记为无效', error_order_path(order),
+				                     method: :patch, data: { confirm: '确定无效此账单?该操作不可逆' } %></td>
+		</tr>
+	<% end %>
+</table>

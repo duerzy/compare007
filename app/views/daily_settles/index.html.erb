@@ -1,0 +1,37 @@
+<p>日结算信息</p>
+<div class "pageHeader">
+	<%= link_to content_tag("span", "新建"), new_daily_settle_path, {:class => 'button',:target => 'dialog'}%>
+</div>
+
+<div class="pageCentent">
+<table class="table">
+	<thead>
+		<tr>
+			<th>日期</th>
+			<th>结算金额</th>
+			<th>确认时间</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @dailySettles.each do |dailySettle| %>
+			<tr>
+				<td><%= dailySettle.date %></td>
+				<td><% tmpf = Float dailySettle.amount %><%= tmpf/100 %></td>
+				<td><%= dailySettle.confirm %></td>
+				<% if dailySettle.confirm.nil? %>
+					<td><%= link_to '对账', daily_settle_path(dailySettle)%></td>
+					<td><%= link_to '删除', daily_settle_path(dailySettle),
+										 method: :delete, data: { confirm: '确定删除此对账信息?该操作不可逆' } %></td>
+				<% else %>
+					<td><%= link_to '查看', daily_settle_path(dailySettle)%></td>
+					<td>已确认对账信息不可删除</td>
+				<% end %>
+				
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>

@@ -1,0 +1,7 @@
+<%= form_for :dailySettle,url: daily_settles_path  do |f| %>
+	<%= f.label '清算日期' %>
+	<%= f.text_field :date %>
+	<%= f.label '清算金额' %>
+	<%= f.text_field :amount %>
+	<%= f.submit "提交" %>
+<% end %>
